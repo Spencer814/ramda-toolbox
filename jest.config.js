@@ -1,4 +1,4 @@
-const { description, name, version } = require('./package');
+const { name, version } = require('./package');
 
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
@@ -46,17 +46,6 @@ module.exports = {
       {
         outputDirectory: './artifacts',
         outputName: './coverage-junit-report.xml'
-      }
-    ],
-    [
-      'jest-stare',
-      {
-        coverageLink: './report.html',
-        resultDir: './artifacts',
-        reportHeadline: `${name} v${version}`,
-        reportSummary: true,
-        reportTitle: description,
-        resultHtml: 'coverage.html'
       }
     ]
   ],

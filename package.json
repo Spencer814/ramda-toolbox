@@ -48,7 +48,6 @@
     "jest-junit": "^11.0.1",
     "jest-runner-eslint": "^0.10.0",
     "jest-runner-tsc": "^1.6.0",
-    "jest-stare": "^2.0.1",
     "jest-validate": "^26.1.0",
     "jest-watch-continue": "^1.1.4",
     "jest-watch-select-projects": "^2.0.0",
