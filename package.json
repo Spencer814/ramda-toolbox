@@ -11,7 +11,7 @@
     "watchAll": "jest -c jest.config.unit.js --watchAll",
     "test-cov": "jest -c jest.config.unit.js; open ./artifacts/coverage.html",
     "docs": "rm -rf ./docs; jsdoc -p -c ./lib/utility/jsdoc.js; open ./docs/index.html",
-    "lint": "./node_modules/.bin/eslint ./toolbox --fix"
+    "lint": "eslint ./toolbox --fix"
   },
   "engines": {
     "node": ">=12"
@@ -62,5 +62,14 @@
     "ts-jest": "^26.1.1",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Spencer814/ramda-toolbox.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Spencer814/ramda-toolbox/issues"
+  },
+  "homepage": "https://github.com/Spencer814/ramda-toolbox#readme",
+  "description": ""
 }
