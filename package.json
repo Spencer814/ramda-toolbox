@@ -10,7 +10,7 @@
     "watch": "jest -c jest.config.unit.js --watch",
     "watchAll": "jest -c jest.config.unit.js --watchAll",
     "test-cov": "jest -c jest.config.unit.js; open ./artifacts/coverage.html",
-    "docs": "rm -rf ./docs; jsdoc -p -c ./lib/utility/jsdoc.js; open ./docs/index.html",
+    "docs": "rm -rf ./docs; jsdoc -p -c jsdoc.js; open ./docs/index.html",
     "lint": "eslint ./toolbox --fix"
   },
   "engines": {
