@@ -1,12 +1,12 @@
-import { __, apply, compose, converge, curry, curryN, either, equals, keys, max, o, pipe, pluck, reduce, type, unless, values } from 'ramda';
+import { __, apply, compose, converge, curry, curryN, either, keys, max, o, pipe, pluck, reduce, unless, values } from 'ramda';
+import { isAsyncFunction, isFunction } from 'ramda-adjunct'
 
 import promiseAllRecursive from './promiseAllRecursive';
 import viewLens from './viewLens';
 
-const typeEquals = (ctor: string) => o(equals(ctor), type);
 const getArity = compose(reduce(max, 0), pluck('length'), values);
 
-const isFunction = either(typeEquals('Function'), typeEquals('AsyncFunction'));
+const isFunctionType = either(isFunction, isAsyncFunction);
 
 interface Nested {
   [key: string]: Function | Promise<Function>;
@@ -17,7 +17,7 @@ interface Acc {
 }
 
 const mapValues = curry(
-  (fn, obj) => {
+  (fn: any, obj: object) => {
     const iterator = (acc: Acc, key: string) => {
       const val = fn(viewLens(key, obj));
       return { [key]: val, ...acc };
@@ -52,10 +52,9 @@ interface Spec {
  * getMetrics(2, 4); // => { sum: 6, nested: { mul: 8 } }
  *
  * @see {@link https://ramdajs.com/docs/#applySpec|Ramda applySpec}
- * @see {@link https://github.com/usefulthink/promise-all-recursive|promise-all-recursive}
  */
 const applySpecProm = (spec: Spec) => (...args: any[]) => pipe(
-  mapValues(unless(isFunction, applySpecProm)),
+  mapValues(unless(isFunctionType, applySpecProm)),
   mapValues(apply(__, args)),
   promiseAllRecursive
 )(spec);

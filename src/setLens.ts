@@ -22,4 +22,4 @@ import lensFn from './internal/lensFn';
  * @see {@link https://ramdajs.com/docs/#lensProp|Ramda lensProp}
  * @see {@link https://ramdajs.com/docs/#view|Ramda set}
  */
-export default curryN(3, (src, val, data) => set(lensFn(src), val, data));
+export default curryN(3, (src: string | number | (string | number)[], val: string | number, data: string | number | (string | number | boolean)[] | object): object | (string | number | boolean)[] => set(lensFn(src), val, data));

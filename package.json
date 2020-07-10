@@ -11,7 +11,7 @@
     "watchAll": "jest -c jest.config.unit.js --watchAll",
     "test-cov": "jest -c jest.config.unit.js; open ./artifacts/coverage.html",
     "docs": "rm -rf ./docs; jsdoc -p -c jsdoc.js; open ./docs/index.html",
-    "lint": "eslint ./toolbox --fix"
+    "lint": "eslint ./src --fix"
   },
   "engines": {
     "node": ">=12"
@@ -23,7 +23,8 @@
     "@typescript-eslint/eslint-plugin": "^3.6.0",
     "@typescript-eslint/parser": "^3.6.0",
     "bluebird": "^3.7.2",
-    "ramda": "^0.27.0"
+    "ramda": "^0.27.0",
+    "ramda-adjunct": "^2.27.0"
   },
   "devDependencies": {
     "docdash": "^1.2.0",

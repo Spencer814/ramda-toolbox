@@ -6,6 +6,7 @@ import viewLens from './viewLens';
  * @function viewOr
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure or the defaultValue if null, undefined, or NaN.
+ * Based on Ramda Adjunct viewOr
  *
  * @param {*} def - The default value
  * @param {*} val - The specified index, path, or property

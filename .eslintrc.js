@@ -13,6 +13,7 @@
  */
 module.exports = {
   parserOptions: {
+    ecmaVersion: 2018,
     ecmaFeatures: {
       modules: true
     }
@@ -25,6 +26,7 @@ module.exports = {
   },
   plugins: ['import'],
   env: {
+    es6: true,
     node: true,
     jest: true
   },
@@ -101,7 +103,6 @@ module.exports = {
     ],
     'no-shadow': 0,
     'no-undef': 0,
-    'no-underscore-dangle': 0,
     /** Disabled to allow for defining propTypes/defaultProps above function declaration components */
     'no-use-before-define': ['error', { functions: false }],
     'no-useless-escape': 0,

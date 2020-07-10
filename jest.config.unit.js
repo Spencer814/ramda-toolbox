@@ -2,9 +2,7 @@ const config = require('./jest.config');
 
 config.projects = [{
   displayName: 'test',
-  testMatch: [
-    '**/__tests__/*.test.ts'
-  ],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   }

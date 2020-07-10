@@ -52,6 +52,7 @@ module.exports = {
   resetMocks: true,
   resetModules: true,
   restoreMocks: true,
+  roots: ['<rootDir>/src'],
   runner: 'jest-runner-eslint',
   testEnvironment: 'node',
   timers: 'fake',

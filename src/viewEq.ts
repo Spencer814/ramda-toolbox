@@ -7,6 +7,7 @@ import viewWith from './viewWith';
  * @function viewEq
  * @memberof Toolbox
  * @description Returns true if the given lens equals to given value
+ * Based on Ramda Extension viewEq
  *
  * @param {Function} lens - Van Laarhoven lens
  * @param {*} value - The value to compare the focused data structure with

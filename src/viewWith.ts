@@ -6,6 +6,7 @@ import viewLens from './viewLens';
  * @function viewWith
  * @memberof Toolbox
  * @description Applies function on the given lens view, with args reversed to match
+ * Based on Ramda Extension viewWith
  *
  * @param {*} val - The specified index, path, or property
  * @param {Function} fn - function used for lens
