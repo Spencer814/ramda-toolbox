@@ -26,9 +26,7 @@ module.exports = {
       statements: 100
     }
   },
-  moduleDirectories: [
-    'node_modules'
-  ],
+  moduleDirectories: ['node_modules'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   preset: 'ts-jest',
   reporters: [
@@ -57,9 +55,6 @@ module.exports = {
   testEnvironment: 'node',
   timers: 'fake',
   verbose: true,
-  watchPathIgnorePatterns: [
-    '.*jest-stare.*\\.js'
-  ],
   watchPlugins: [
     'jest-runner-eslint/watch-fix',
     'jest-watch-continue',

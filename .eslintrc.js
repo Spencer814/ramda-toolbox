@@ -1,41 +1,39 @@
-/**
- * @description
- * Main ESLint config. Most rules are inherited from the `extends` key,
- * but our own overrides live within the `rules` key. Ultimately, the
- * rules that are enforced should add value and consistency to our code -
- * not to inhibit one's ability to get work done and be productive.
- *
- * NOTE: If altering `rules`, leave a small explanation for why the change
- * was made. This config once lived within our package.json, but that
- * restricted us from adding comments to explain certain rules.
- *
- * @see https://eslint.org/docs/user-guide/configuring
- */
 module.exports = {
+  root: true,
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2018,
+    sourceType: 'module',
     ecmaFeatures: {
+      impliedStrict: false,
       modules: true
     }
   },
-  extends: ['eslint:recommended', 'prettier'],
-  settings: {
-    'import/resolver': {
-      node: {},
-    }
-  },
-  plugins: ['import'],
+  extends: [
+    'eslint-config-airbnb-base',
+    'plugin:jest/recommended',
+    'plugin:jest-formatting/recommended',
+    'plugin:jsdoc/recommended',
+    'plugin:ramda/recommended',
+    'prettier'
+  ],
+  plugins: [
+    'eslint-plugin-ramda',
+    'eslint-plugin-prettier',
+    'import',
+    'jsdoc',
+    'prettier'
+  ],
   env: {
     es6: true,
     node: true,
     jest: true
   },
+  globals: {
+    Symbol: true
+  },
   rules: {
     'arrow-body-style': 0,
-    /** Often times, API data does not come in camel cased, converting to and from all the time is
-     *  a pain and disabling inline would be insanely verbose. Seek to limit camel cased variables
-     *  to API data only.
-     */
     camelcase: 0,
     'class-methods-use-this': 0,
     'comma-dangle': [
@@ -48,21 +46,18 @@ module.exports = {
         functions: 'only-multiline'
       }
     ],
-    /** If all variables in destructuring should be const, this rule warns the variables. Otherwise, ignores them. */
     'prefer-const': [
       'warn',
       {
         destructuring: 'all'
       }
     ],
-    // for of loops are fine...
     'no-restricted-syntax': 0,
     'global-require': 0,
     'import/no-named-as-default': 0,
     'import/no-useless-path-segments': 0,
     'import/prefer-default-export': 0,
     'linebreak-style': 0,
-    /** This is perfectly valid syntax... */
     'no-plusplus': 0,
     'no-console': 0,
     'no-lonely-if': 0,
@@ -73,7 +68,6 @@ module.exports = {
         allow: ['__REDUX_DEVTOOLS_EXTENSION__']
       }
     ],
-    /** This is silly, c'mon */
     'one-var': 0,
     'no-param-reassign': [
       'error',
@@ -93,7 +87,6 @@ module.exports = {
         ]
       }
     ],
-    /** Expressions are extremely useful constructs — especially in JSX */
     'no-unused-expressions': [
       'error',
       {
@@ -103,7 +96,6 @@ module.exports = {
     ],
     'no-shadow': 0,
     'no-undef': 0,
-    /** Disabled to allow for defining propTypes/defaultProps above function declaration components */
     'no-use-before-define': ['error', { functions: false }],
     'no-useless-escape': 0,
     'no-new': 0,
@@ -112,13 +104,89 @@ module.exports = {
       'error',
       {
         'newlines-between': 'always',
-        groups: ['builtin', 'external', ['internal', 'unknown'], 'parent', 'sibling', 'index']
+        groups: [
+          'builtin',
+          'external',
+          ['internal', 'unknown'],
+          'parent',
+          'sibling',
+          'index'
+        ]
       }
     ],
     'guard-for-in': 0,
     'no-cond-assign': [1, 'except-parens'],
     'import/extensions': [0, 'never'],
-    'no-nested-ternary': 0
+    'no-nested-ternary': 0,
+    'no-eval': 2,
+    eqeqeq: 0,
+    'no-eq-null': 0,
+    'new-cap': 0,
+    'no-unused-vars': [
+      2,
+      {
+        vars: 'all',
+        args: 'none'
+      }
+    ],
+    'brace-style': [
+      2,
+      '1tbs',
+      {
+        allowSingleLine: true
+      }
+    ],
+    'no-mixed-spaces-and-tabs': 2,
+    'no-multi-str': 2,
+    'key-spacing': 0,
+    'space-unary-ops': 0,
+    'no-spaced-func': 2,
+    'space-before-function-paren': 'warn',
+    'spaced-comment': [2, 'always'],
+    'array-bracket-spacing': [
+      2,
+      'never',
+      {
+        singleValue: false
+      }
+    ],
+    'space-in-parens': [2, 'never'],
+    'no-trailing-spaces': 2,
+    yoda: [2, 'never'],
+    'comma-style': [2, 'last'],
+    curly: [2, 'all'],
+    'dot-notation': 0,
+    'eol-last': 2,
+    'wrap-iife': [2, 'outside'],
+    'space-infix-ops': 2,
+    'space-return-throw-case': 0,
+    'keyword-spacing': [2, { after: true, before: true }],
+    'lines-around-comment': 0,
+    'space-before-blocks': [2, 'always'],
+    indent: [
+      2,
+      2,
+      {
+        SwitchCase: 1
+      }
+    ],
+    quotes: [2, 'single', 'avoid-escape'],
+    'no-debugger': 2,
+    'no-dupe-args': 2,
+    'no-dupe-keys': 2,
+    'no-duplicate-case': 2,
+    'no-extra-semi': 2,
+    'no-unreachable': 2,
+    semi: 2,
+    strict: [2, 'global'],
+    'no-confusing-arrow': 'off',
+    'object-curly-newline': 'off',
+    'ramda/always-simplification': ['error'],
+    'ramda/compose-simplification': ['error'],
+    'ramda/eq-by-simplification': ['error'],
+    'ramda/prefer-complement': ['error'],
+    'ramda/prefer-both-either': ['error'],
+    'prettier/prettier': 'error'
   },
   overrides: [
     {
