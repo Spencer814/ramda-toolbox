@@ -27,8 +27,7 @@ module.exports = {
     }
   },
   moduleDirectories: ['node_modules'],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  preset: 'ts-jest',
+  moduleFileExtensions: ['js'],
   reporters: [
     'default',
     [
@@ -54,6 +53,9 @@ module.exports = {
   runner: 'jest-runner-eslint',
   testEnvironment: 'node',
   timers: 'fake',
+  transform: {
+    '^.+\\.js?$': 'babel-jest'
+  },
   verbose: true,
   watchPlugins: [
     'jest-runner-eslint/watch-fix',

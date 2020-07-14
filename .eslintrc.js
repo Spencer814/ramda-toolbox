@@ -18,6 +18,7 @@ module.exports = {
     'prettier'
   ],
   plugins: [
+    'babel',
     'eslint-plugin-ramda',
     'eslint-plugin-prettier',
     'import',
@@ -34,6 +35,14 @@ module.exports = {
   },
   rules: {
     'arrow-body-style': 0,
+    'babel/new-cap': 1,
+    'babel/camelcase': 1,
+    'babel/no-invalid-this': 1,
+    'babel/object-curly-spacing': 0,
+    'babel/quotes': 0,
+    'babel/semi': 1,
+    'babel/no-unused-expressions': 1,
+    'babel/valid-typeof': 1,
     camelcase: 0,
     'class-methods-use-this': 0,
     'comma-dangle': [
@@ -187,36 +196,5 @@ module.exports = {
     'ramda/prefer-complement': ['error'],
     'ramda/prefer-both-either': ['error'],
     'prettier/prettier': 'error'
-  },
-  overrides: [
-    {
-      /**
-       * @see https://eslint.org/blog/2019/01/future-typescript-eslint
-       */
-      files: ['**/*.ts', '**/*.tsx'],
-      excludedFiles: '**/*.js',
-      parser: '@typescript-eslint/parser',
-      parserOptions: {
-        ecmaVersion: 2018,
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true
-        },
-        project: './tsconfig.json'
-      },
-      plugins: ['@typescript-eslint'],
-      /** The TS compiler will enforce these rules. */
-      rules: {
-        'import/no-unresolved': ['off'],
-        'no-unused-vars': ['off'],
-        'no-undef': ['off'],
-        'no-nested-ternary': 0,
-        'no-unused-expressions': 'off',
-        '@typescript-eslint/no-unused-expressions': [
-          'error',
-          { allowShortCircuit: true, allowTernary: true }
-        ]
-      }
-    }
-  ]
+  }
 };
