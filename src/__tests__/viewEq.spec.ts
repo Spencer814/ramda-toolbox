@@ -1,4 +1,4 @@
-import { viewEq, viewEqIndex, viewEqPath, viewEqProp } from '../viewEq.js';
+import { viewEq, viewEqIndex, viewEqPath, viewEqProp } from '../viewEq';
 
 describe('utility', () => {
   describe('toolbox', () => {

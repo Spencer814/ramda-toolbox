@@ -1,4 +1,4 @@
-import { setLens, setLensIndex, setLensPath, setLensProp } from '../setLens.js';
+import { setLens, setLensIndex, setLensPath, setLensProp } from '../setLens';
 
 describe('utility', () => {
   describe('toolbox', () => {

@@ -1,4 +1,4 @@
-import promiseAllRecursive from '../promiseAllRecursive.js';
+import promiseAllRecursive from '../promiseAllRecursive';
 
 describe('promiseAllRecursive()', () => {
   test('wraps primitives in promises', () =>

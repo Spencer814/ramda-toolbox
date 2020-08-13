@@ -1,37 +1,11 @@
 module.exports = {
-  env: {
-    commonjs: {
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: 'commonjs',
-            forceAllTransforms: true
-          }
-        ]
-      ],
-      plugins: [
-        [
-          '@babel/plugin-transform-modules-commonjs',
-          {
-            loose: true
-          }
-        ]
-      ]
-    },
-    es: {
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: false,
-            forceAllTransforms: true
-          }
-        ]
-      ]
-    },
-    test: {
-      plugins: ['@babel/plugin-transform-modules-commonjs']
-    }
-  }
+  presets: [
+    '@babel/preset-env',
+    '@babel/preset-typescript'
+  ],
+  plugins: [
+    '@babel/proposal-class-properties',
+    '@babel/proposal-object-rest-spread',
+    '@babel/plugin-transform-modules-commonjs'
+  ]
 };

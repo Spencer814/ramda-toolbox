@@ -1,83 +1,105 @@
 module.exports = {
-  root: true,
-  parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module',
+    ecmaVersion: 2020,
     ecmaFeatures: {
-      impliedStrict: false,
+      impliedStrict: true,
       modules: true
-    }
+    },
+    project: './tsconfig.json',
+    sourceType: 'module'
   },
-  extends: [
-    'eslint-config-airbnb-base',
-    'plugin:jest/recommended',
-    'plugin:jest-formatting/recommended',
-    'plugin:jsdoc/recommended',
-    'plugin:ramda/recommended',
-    'prettier'
-  ],
-  plugins: [
-    'babel',
-    'eslint-plugin-ramda',
-    'eslint-plugin-prettier',
-    'import',
-    'jsdoc',
-    'prettier'
-  ],
   env: {
     es6: true,
-    node: true,
-    jest: true
+    jest: true,
+    node: true
   },
-  globals: {
-    Symbol: true
-  },
+  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: [
+    '@babel',
+    '@typescript-eslint',
+    'eslint-plugin-import-order-alphabetical',
+    'import',
+    'ramda',
+    'sort-destructure-keys',
+    'sort-keys-fix'
+  ],
   rules: {
-    'arrow-body-style': 0,
-    'babel/new-cap': 1,
-    'babel/camelcase': 1,
-    'babel/no-invalid-this': 1,
-    'babel/object-curly-spacing': 0,
-    'babel/quotes': 0,
-    'babel/semi': 1,
-    'babel/no-unused-expressions': 1,
-    'babel/valid-typeof': 1,
-    camelcase: 0,
-    'class-methods-use-this': 0,
+    '@typescript-eslint/explicit-module-boundary-types': [
+      'error',
+      {
+        allowArgumentsExplicitlyTypedAsAny: true
+      }
+    ],
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/no-unused-expressions': [
+      'error',
+      {
+        allowShortCircuit: true,
+        allowTernary: true
+      }
+    ],
+    'array-bracket-spacing': ['error', 'never'],
+    'arrow-parens': ['error', 'as-needed'],
+    'brace-style': [
+      'error',
+      '1tbs',
+      {
+        allowSingleLine: true
+      }
+    ],
+    camelcase: 'off',
+    'class-methods-use-this': 'off',
     'comma-dangle': [
       'error',
       {
-        arrays: 'only-multiline',
-        objects: 'only-multiline',
-        imports: 'only-multiline',
-        exports: 'only-multiline',
-        functions: 'only-multiline'
+        arrays: 'never',
+        objects: 'never',
+        imports: 'never',
+        exports: 'never',
+        functions: 'never'
       }
     ],
-    'prefer-const': [
-      'warn',
+    'function-paren-newline': ['error', 'consistent'],
+    'global-require': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'import-order-alphabetical/order': 'error',
+    'import/group-exports': 'error',
+    'import/no-dynamic-require': 'off',
+    'import/order': [
+      'error',
       {
-        destructuring: 'all'
+        'newlines-between': 'always'
       }
     ],
-    'no-restricted-syntax': 0,
-    'global-require': 0,
-    'import/no-named-as-default': 0,
-    'import/no-useless-path-segments': 0,
-    'import/prefer-default-export': 0,
-    'linebreak-style': 0,
-    'no-plusplus': 0,
-    'no-console': 0,
-    'no-lonely-if': 0,
-    'no-restricted-globals': 1,
-    'no-underscore-dangle': [
-      'warn',
+    indent: ['error', 2],
+    'jest/no-try-expect': 'off',
+    'max-len': [
+      'error',
       {
-        allow: ['__REDUX_DEVTOOLS_EXTENSION__']
+        code: 100,
+        ignoreComments: true,
+        ignoreRegExpLiterals: true,
+        ignoreStrings: true,
+        ignoreTemplateLiterals: true,
+        ignoreTrailingComments: true,
+        ignoreUrls: true
       }
     ],
-    'one-var': 0,
+    'newline-per-chained-call': [
+      'error',
+      {
+        ignoreChainWithDepth: 4
+      }
+    ],
+    'no-multiple-empty-lines': [
+      'error',
+      {
+        max: 1,
+        maxEOF: 0
+      }
+    ],
     'no-param-reassign': [
       'error',
       {
@@ -91,110 +113,81 @@ module.exports = {
           'res',
           'response',
           '$scope',
-          'server',
-          'draft'
+          'server'
         ]
       }
     ],
-    'no-unused-expressions': [
+    'no-underscore-dangle': [
       'error',
       {
-        allowShortCircuit: true,
-        allowTernary: true
+        allow: ['_transform']
       }
     ],
-    'no-shadow': 0,
-    'no-undef': 0,
-    'no-use-before-define': ['error', { functions: false }],
-    'no-useless-escape': 0,
-    'no-new': 0,
-    'prefer-destructuring': 0,
-    'import/order': [
+    'no-var': 'error',
+    'node/no-unsupported-features/es-builtins': 'off',
+    'object-curly-newline': [
       'error',
       {
-        'newlines-between': 'always',
-        groups: [
-          'builtin',
-          'external',
-          ['internal', 'unknown'],
-          'parent',
-          'sibling',
-          'index'
-        ]
+        consistent: true
       }
     ],
-    'guard-for-in': 0,
-    'no-cond-assign': [1, 'except-parens'],
-    'import/extensions': [0, 'never'],
-    'no-nested-ternary': 0,
-    'no-eval': 2,
-    eqeqeq: 0,
-    'no-eq-null': 0,
-    'new-cap': 0,
-    'no-unused-vars': [
-      2,
+    'object-curly-spacing': ['error', 'always'],
+    'prefer-const': 'error',
+    'prefer-destructuring': [
+      'error',
       {
-        vars: 'all',
-        args: 'none'
-      }
-    ],
-    'brace-style': [
-      2,
-      '1tbs',
+        array: true,
+        object: true
+      },
       {
-        allowSingleLine: true
+        enforceForRenamedProperties: true
       }
     ],
-    'no-mixed-spaces-and-tabs': 2,
-    'no-multi-str': 2,
-    'key-spacing': 0,
-    'space-unary-ops': 0,
-    'no-spaced-func': 2,
-    'space-before-function-paren': 'warn',
-    'spaced-comment': [2, 'always'],
-    'array-bracket-spacing': [
-      2,
-      'never',
+    quotes: ['error', 'single'],
+    'quote-props': ['error', 'as-needed'],
+    'ramda/always-simplification': 'error',
+    'ramda/any-pass-simplification': 'error',
+    'ramda/both-simplification': 'error',
+    'ramda/complement-simplification': 'error',
+    'ramda/compose-pipe-style': 'off',
+    'ramda/compose-simplification': 'error',
+    'ramda/cond-simplification': 'error',
+    'ramda/either-simplification': 'error',
+    'ramda/eq-by-simplification': 'error',
+    'ramda/filter-simplification': 'error',
+    'ramda/if-else-simplification': 'error',
+    'ramda/map-simplification': 'error',
+    'ramda/merge-simplification': 'error',
+    'ramda/no-redundant-and': 'error',
+    'ramda/no-redundant-not': 'error',
+    'ramda/no-redundant-or': 'error',
+    'ramda/pipe-simplification': 'error',
+    'ramda/prefer-both-either': 'error',
+    'ramda/prefer-complement': 'error',
+    'ramda/prefer-ramda-boolean': 'error',
+    'ramda/prop-satisfies-simplification': 'error',
+    'ramda/reduce-simplification': 'error',
+    'ramda/reject-simplification': 'error',
+    'ramda/set-simplification': 'error',
+    'ramda/unless-simplification': 'error',
+    'ramda/when-simplification': 'error',
+    semi: ['error', 'always'],
+    'sort-destructure-keys/sort-destructure-keys': [
+      'error',
       {
-        singleValue: false
+        caseSensitive: false
       }
     ],
-    'space-in-parens': [2, 'never'],
-    'no-trailing-spaces': 2,
-    yoda: [2, 'never'],
-    'comma-style': [2, 'last'],
-    curly: [2, 'all'],
-    'dot-notation': 0,
-    'eol-last': 2,
-    'wrap-iife': [2, 'outside'],
-    'space-infix-ops': 2,
-    'space-return-throw-case': 0,
-    'keyword-spacing': [2, { after: true, before: true }],
-    'lines-around-comment': 0,
-    'space-before-blocks': [2, 'always'],
-    indent: [
-      2,
-      2,
-      {
-        SwitchCase: 1
-      }
-    ],
-    quotes: [2, 'single', 'avoid-escape'],
-    'no-debugger': 2,
-    'no-dupe-args': 2,
-    'no-dupe-keys': 2,
-    'no-duplicate-case': 2,
-    'no-extra-semi': 2,
-    'no-unreachable': 2,
-    semi: 2,
-    strict: [2, 'global'],
-    'no-confusing-arrow': 'off',
-    'object-curly-newline': 'off',
-    'ramda/always-simplification': ['error'],
-    'ramda/compose-simplification': ['error'],
-    'ramda/eq-by-simplification': ['error'],
-    'ramda/prefer-complement': ['error'],
-    'ramda/prefer-both-either': ['error'],
-    'prettier/prettier': 'error'
-  }
+    'spaced-comment': ['error', 'always']
+  },
+  extends: [
+    'airbnb-base',
+    'airbnb-typescript/base',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:jest/recommended',
+    'plugin:jest-formatting/strict',
+    'plugin:ramda/recommended'
+  ]
 };

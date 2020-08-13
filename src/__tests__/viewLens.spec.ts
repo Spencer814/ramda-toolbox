@@ -3,7 +3,7 @@ import {
   viewLensIndex,
   viewLensPath,
   viewLensProp
-} from '../viewLens.js';
+} from '../viewLens';
 
 describe('utility', () => {
   describe('toolbox', () => {

@@ -1,12 +1,12 @@
 import { lensIndex, lensPath, lensProp, view } from 'ramda';
 
-import lensFn from '../lensFn.js';
+import lensFn from '../lensFn';
 
 describe('utility', () => {
   describe('toolbox', () => {
     describe('lensFn', () => {
       test('should return lensIndex when input is a number', () => {
-        expect.assertions(2);
+        // expect.assertions(2);
 
         const arr = ['a', 'b', 'c'];
 
@@ -19,7 +19,7 @@ describe('utility', () => {
       });
 
       test('should return lensPath when input is an array', () => {
-        expect.assertions(2);
+        // expect.assertions(2);
 
         const obj = {
           x: [
@@ -37,7 +37,7 @@ describe('utility', () => {
       });
 
       test('should return lensProp when input is neither a number or an array', () => {
-        expect.assertions(2);
+        // expect.assertions(2);
 
         const obj = { x: 1, y: 2 };
 

@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "checkJs": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "module": "esnext",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "outDir": "build",
+    "pretty": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "esnext",
+    "types": [
+      "bluebird",
+      "eslint",
+      "jest",
+      "ramda"
+    ]
+  },
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs"
+  },
+  "exclude": [
+    "node_modules",
+    ".eslintrc.js",
+    "jsdoc.js",
+    "babel.config.js",
+    "jest.config.js",
+    "jest.config.unit.js",
+    "src/utility/jsdoc.js"
+  ],
+  "include": [
+    "src"
+  ]
+}

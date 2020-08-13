@@ -26,8 +26,34 @@ module.exports = {
       statements: 100
     }
   },
+  globals: {
+    'ts-jest': {
+      tsConfig: './tsconfig.json'
+    }
+  },
   moduleDirectories: ['node_modules'],
-  moduleFileExtensions: ['js'],
+  moduleFileExtensions: ['js', 'json', 'node', 'ts'],
+  projects: [
+    {
+      displayName: 'test',
+      runner: 'jest-runner-tsc',
+      testPathIgnorePatterns: ['artifacts', 'build', 'docs'],
+      testRegex: '^.+.spec.ts$'
+    },
+    {
+      displayName: 'lint',
+      modulePathIgnorePatterns: [
+        'index.js',
+        '.eslintrc.js',
+        'babel.config.js',
+        'jsdoc.js',
+        'jest.config.js'
+      ],
+      runner: 'jest-runner-eslint',
+      testPathIgnorePatterns: ['artifacts', 'build', 'docs'],
+      testRegex: '^.+.(j|t)s$'
+    }
+  ],
   reporters: [
     'default',
     [
@@ -49,18 +75,15 @@ module.exports = {
   resetMocks: true,
   resetModules: true,
   restoreMocks: true,
-  roots: ['<rootDir>/src'],
-  runner: 'jest-runner-eslint',
   testEnvironment: 'node',
   timers: 'fake',
   transform: {
-    '^.+\\.js?$': 'babel-jest'
+    '^.+\\.[t|j]s?$': 'ts-jest'
   },
   verbose: true,
   watchPlugins: [
     'jest-runner-eslint/watch-fix',
     'jest-watch-continue',
-    'jest-watch-select-projects',
     'jest-watch-suspend',
     ['jest-watch-toggle-config', { setting: 'bail' }],
     ['jest-watch-toggle-config', { setting: 'collectCoverage' }],

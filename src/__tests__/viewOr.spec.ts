@@ -1,4 +1,4 @@
-import { viewOr, viewOrIndex, viewOrPath, viewOrProp } from '../viewOr.js';
+import { viewOr, viewOrIndex, viewOrPath, viewOrProp } from '../viewOr';
 
 describe('utility', () => {
   describe('toolbox', () => {
@@ -73,8 +73,8 @@ describe('utility', () => {
         expect.assertions(3);
 
         expect(viewOrIndex('foo', 1, [{}])).toBe('foo');
-        expect(viewOrIndex('foo', [11], [])).toBe('foo');
-        expect(viewOrIndex('foo', [11], [{}])).toBe('foo');
+        expect(viewOrIndex('foo', 11, [])).toBe('foo');
+        expect(viewOrIndex('foo', 11, [{}])).toBe('foo');
       });
 
       test('tests currying', () => {
@@ -138,11 +138,10 @@ describe('utility', () => {
       });
 
       test('tests default value', () => {
-        expect.assertions(3);
+        expect.assertions(2);
 
         expect(viewOrProp('foo', 'bar', {})).toBe('foo');
-        expect(viewOrProp('foo', 11, [])).toBe('foo');
-        expect(viewOrProp('foo', 11, {})).toBe('foo');
+        expect(viewOrProp('foo', 'bar', [])).toBe('foo');
       });
 
       test('tests currying', () => {
