@@ -2,6 +2,6 @@
  * @namespace Internal
  */
 
-import * as lensFn from './lensFn';
-
-export default lensFn;
+export { default as lensFn } from './lensFn';
+export { default as promiseAllRecursive } from './promiseAllRecursive';
+export { allP, allSettledP, anyP, propsP, rejectP, resolveP } from './promises';
