@@ -1,17 +1,24 @@
-// @ts-check
 import { curry, lensIndex, lensPath, lensProp, set } from 'ramda';
+import type { Key } from 'Any/Key'
+import type { Curry } from 'Function/Curry';
+import * as Array from 'Misc/JSON/Array'
+import * as Object from 'Misc/JSON/Object'
+import type { String } from 'String/String'
 
 import lensFn from './internal/lensFn';
 
-type Path = (string | number)[];
-type Input = number | Path | string;
-type List = any[];
+type Path = (String | number)[];
+type Input = number | Path | String;
+type List = Array<any>;
+
 interface Dictionary {
-  [index: string]: any;
+  [index: string]: Key | Path | Object;
 }
 
-const setLensFunc: (src: Input, val: any, data: Dictionary | List) => any = (src, val, data) =>
-  set(lensFn(src), val, data);
+type SetLens = Curry<(src: Input, val: any, data: Dictionary | List) => Dictionary | List>;
+type SetLensIndex = Curry<(n: number, val: any, arr: List) => List>;
+type SetLensPath = Curry<(path: Path, val: any, obj: Dictionary) => Dictionary>;
+type SetLensProp = Curry<(str: String, val: any, obj: Dictionary) => Dictionary>;
 
 /**
  * @function setLens
@@ -21,7 +28,7 @@ const setLensFunc: (src: Input, val: any, data: Dictionary | List) => any = (src
  * @param {string|number|string[]|number[]} src - The specified index, path, or property
  * @param {*} val - The value that will be set
  * @param {Object.<string,*>|*} data - The data structure
- * @returns {*}
+ * @returns {Object.<string,*>|*}
  *
  * @example
  * ```
@@ -34,10 +41,8 @@ const setLensFunc: (src: Input, val: any, data: Dictionary | List) => any = (src
  * @see {@link https://ramdajs.com/docs/#lensProp|Ramda lensProp}
  * @see {@link https://ramdajs.com/docs/#set|Ramda set}
  */
-const setLens = curry(setLensFunc);
-
-const setLensIndexFunc: (n: number, val: any, arr: List) => any = (n, val, arr) =>
-  set(lensIndex(n), val, arr);
+const setLens: SetLens = curry((src: Input, val: any, data: Dictionary | List) =>
+  set(lensFn(src), val, data));
 
 /**
  * @function setLensIndex
@@ -56,10 +61,8 @@ const setLensIndexFunc: (n: number, val: any, arr: List) => any = (n, val, arr) 
  * @see {@link https://ramdajs.com/docs/#lensIndex|Ramda lensIndex}
  * @see {@link https://ramdajs.com/docs/#set|Ramda set}
  */
-const setLensIndex = curry(setLensIndexFunc);
-
-const setLensPathFunc: (path: Path, val: any, obj: Dictionary) => any = (path, val, obj) =>
-  set(lensPath(path), val, obj);
+const setLensIndex: SetLensIndex = curry((n: number, val: any, arr: List) =>
+  set(lensIndex(n), val, arr));
 
 /**
  * @function setLensPath
@@ -69,7 +72,7 @@ const setLensPathFunc: (path: Path, val: any, obj: Dictionary) => any = (path, v
  * @param {Array.<string|number>} path - The specified path
  * @param {*} val - The value that will be set
  * @param {Object.<string,*>} obj - The data structure
- * @returns {*}
+ * @returns {Object.<string,*>}
  *
  * @example
  * ```
@@ -78,10 +81,8 @@ const setLensPathFunc: (path: Path, val: any, obj: Dictionary) => any = (path, v
  * @see {@link https://ramdajs.com/docs/#lensPath|Ramda lensPath}
  * @see {@link https://ramdajs.com/docs/#set|Ramda set}
  */
-const setLensPath = curry(setLensPathFunc);
-
-const setLensPropFunc: (str: string, val: any, obj: Dictionary) => any = (str, val, obj) =>
-  set(lensProp(str), val, obj); // eslint-disable-line ramda/set-simplification
+const setLensPath: SetLensPath = curry((path: Path, val: any, obj: Dictionary) =>
+  set(lensPath(path), val, obj));
 
 /**
  * @function setLensProp
@@ -91,7 +92,7 @@ const setLensPropFunc: (str: string, val: any, obj: Dictionary) => any = (str, v
  * @param {string} str - The specified property
  * @param {*} val - The value that will be set
  * @param {Object.<string,*>} obj - The data structure
- * @returns {*}
+ * @returns {Object.<string,*>}
  *
  * @example
  * ```
@@ -100,6 +101,7 @@ const setLensPropFunc: (str: string, val: any, obj: Dictionary) => any = (str, v
  * @see {@link https://ramdajs.com/docs/#lensProp|Ramda lensProp}
  * @see {@link https://ramdajs.com/docs/#set|Ramda set}
  */
-const setLensProp = curry(setLensPropFunc);
+const setLensProp: SetLensProp = curry((str: String, val: any, obj: Dictionary) =>
+  set(lensProp(str), val, obj));
 
 export { setLens, setLensIndex, setLensPath, setLensProp };

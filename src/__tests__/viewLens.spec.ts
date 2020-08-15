@@ -1,9 +1,4 @@
-import {
-  viewLens,
-  viewLensIndex,
-  viewLensPath,
-  viewLensProp
-} from '../viewLens';
+import { viewLens, viewLensIndex, viewLensPath, viewLensProp } from '../viewLens';
 
 describe('utility', () => {
   describe('toolbox', () => {
