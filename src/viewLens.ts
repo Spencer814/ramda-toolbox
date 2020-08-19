@@ -1,7 +1,9 @@
-import { curry, lensIndex, lensPath, lensProp, view } from 'ramda';
+import type { Curry } from 'Function/Curry';
+import { curry, identity, lensIndex, lensPath, lensProp, view, useWith } from 'ramda';
 
-import lensFn from './internal/lensFn';
+import { lensFn } from './internal';
 
+type ArgFn = (input: any) => any;
 type Path = (string | number)[];
 type Input = number | Path | string;
 type List = any[];
@@ -9,8 +11,19 @@ interface Dictionary {
   [index: string]: any;
 }
 
-const viewLensFunc: (val: Input, data: Dictionary | List) => any = (val, data) =>
-  view(lensFn(val), data);
+type ViewLensType = Curry<(val: Input, data: Dictionary | List) => any>;
+type ViewLensIndexType = Curry<(n: number, arr: List) => any>;
+type ViewLensPathType = Curry<(path: Path, obj: Dictionary) => any>;
+type ViewLensPropType = Curry<(str: string, obj: Dictionary) => any>;
+
+/**
+ * @private
+ * @function viewLensC
+ * @description Returns a curried function that will set a value at a given lens
+ * @param {Function} fn - function used for lens
+ * @returns {Function}
+ */
+const viewLensC = (fn: ArgFn) => curry(useWith(view, [fn, identity]));
 
 /**
  * @function viewLens
@@ -30,10 +43,7 @@ const viewLensFunc: (val: Input, data: Dictionary | List) => any = (val, data) =
  * @see {@link https://ramdajs.com/docs/#lensProp|Ramda lensProp}
  * @see {@link https://ramdajs.com/docs/#view|Ramda view}
  */
-const viewLens = curry(viewLensFunc);
-
-const viewLensIndexFunc: (n: number, arr: List) => any = (n, arr) =>
-  view(lensIndex(n), arr);
+const viewLens: ViewLensType = viewLensC(lensFn);
 
 /**
  * @function viewLensIndex
@@ -49,10 +59,7 @@ const viewLensIndexFunc: (n: number, arr: List) => any = (n, arr) =>
  * @see {@link https://ramdajs.com/docs/#lensIndex|Ramda lensIndex}
  * @see {@link https://ramdajs.com/docs/#view|Ramda view}
  */
-const viewLensIndex = curry(viewLensIndexFunc);
-
-const viewLensPathFunc: (path: Path, obj: Dictionary) => any = (path, obj) =>
-  view(lensPath(path), obj);
+const viewLensIndex: ViewLensIndexType = viewLensC(lensIndex);
 
 /**
  * @function viewLensPath
@@ -68,10 +75,7 @@ const viewLensPathFunc: (path: Path, obj: Dictionary) => any = (path, obj) =>
  * @see {@link https://ramdajs.com/docs/#lensPath|Ramda lensPath}
  * @see {@link https://ramdajs.com/docs/#view|Ramda view}
  */
-const viewLensPath = curry(viewLensPathFunc);
-
-const viewLensPropFunc: (str: string, obj: Dictionary) => any = (str, obj) =>
-  view(lensProp(str), obj);
+const viewLensPath: ViewLensPathType = viewLensC(lensPath);
 
 /**
  * @function viewLensProp
@@ -87,6 +91,6 @@ const viewLensPropFunc: (str: string, obj: Dictionary) => any = (str, obj) =>
  * @see {@link https://ramdajs.com/docs/#lensProp|Ramda lensProp}
  * @see {@link https://ramdajs.com/docs/#view|Ramda view}
  */
-const viewLensProp = curry(viewLensPropFunc);
+const viewLensProp: ViewLensPropType = viewLensC(lensProp);
 
 export { viewLens, viewLensIndex, viewLensPath, viewLensProp };

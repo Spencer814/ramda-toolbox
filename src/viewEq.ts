@@ -1,7 +1,9 @@
+import type { Curry } from 'Function/Curry';
 import { curry, equals, identity, useWith } from 'ramda';
 
 import { viewWith, viewWithIndex, viewWithPath, viewWithProp } from './viewWith';
 
+type ArgFn = (input: any) => any;
 type Path = (string | number)[];
 type Input = number | Path | string;
 type List = any[];
@@ -9,8 +11,19 @@ interface Dictionary {
   [index: string]: any;
 }
 
-const viewEqFunc: (src: Input, val: any, data: Dictionary | List) => boolean = (src, val, data) =>
-  useWith(viewWith, [identity, equals, identity])(src, val, data);
+type ViewEqType = Curry<(src: Input, val: any, data: Dictionary | List) => boolean>;
+type ViewEqIndexType = Curry<(n: number, val: any, arr: List) => boolean>;
+type ViewEqPathType = Curry<(path: Path, val: any, obj: Dictionary) => boolean>;
+type ViewEqPropType = Curry<(str: string, val: any, obj: Dictionary) => boolean>;
+
+/**
+ * @private
+ * @function viewEqC
+ * @description Returns a curried function that will set a value at a given lens
+ * @param {Function} fn - function used for lens
+ * @returns {Function}
+ */
+const viewEqC = (fn: ArgFn) => curry(useWith(fn, [identity, equals, identity]));
 
 /**
  * @function viewEq
@@ -29,10 +42,7 @@ const viewEqFunc: (src: Input, val: any, data: Dictionary | List) => boolean = (
  * ```
  * @see {@link https://ramda-extension.firebaseapp.com/docs/#viewEq|Ramda Extension viewEq}
  */
-const viewEq = curry(viewEqFunc);
-
-const viewEqIndexFunc: (n: number, val: any, arr: List) => boolean = (n, val, arr) =>
-  useWith(viewWithIndex, [identity, equals, identity])(n, val, arr);
+const viewEq: ViewEqType = viewEqC(viewWith);
 
 /**
  * @function viewEqIndex
@@ -48,7 +58,7 @@ const viewEqIndexFunc: (n: number, val: any, arr: List) => boolean = (n, val, ar
  * viewEqIndex(1, 1, [0, 1, 2]); //=> true
  * ```
  */
-const viewEqIndex = curry(viewEqIndexFunc);
+const viewEqIndex: ViewEqIndexType = viewEqC(viewWithIndex);
 
 /**
  * @function viewEqPath
@@ -64,10 +74,7 @@ const viewEqIndex = curry(viewEqIndexFunc);
  * viewEqPath(['a', 'b'], 'foo', { a: { b: 'foo' } }) //=> true
  * ```
  */
-const viewEqPath = curry(viewEqPathFunc);
-
-const viewEqPropFunc: (str: string, val: any, obj: Dictionary) => boolean = (str, val, obj) =>
-  useWith(viewWithProp, [identity, equals, identity])(str, val, obj);
+const viewEqPath: ViewEqPathType = viewEqC(viewWithPath);
 
 /**
  * @function viewEqProp
@@ -83,6 +90,6 @@ const viewEqPropFunc: (str: string, val: any, obj: Dictionary) => boolean = (str
  * viewEqProp('foo', 'bar')({ foo: 'bar' }); //=> true
  * ```
  */
-const viewEqProp = curry(viewEqPropFunc);
+const viewEqProp: ViewEqPropType = viewEqC(viewWithProp);
 
 export { viewEq, viewEqIndex, viewEqPath, viewEqProp };

@@ -1,24 +1,29 @@
-import { curry, lensIndex, lensPath, lensProp, set } from 'ramda';
-import type { Key } from 'Any/Key'
 import type { Curry } from 'Function/Curry';
-import * as Array from 'Misc/JSON/Array'
-import * as Object from 'Misc/JSON/Object'
-import type { String } from 'String/String'
+import { curry, identity, lensIndex, lensPath, lensProp, set, useWith } from 'ramda';
 
-import lensFn from './internal/lensFn';
+import { lensFn } from './internal';
 
-type Path = (String | number)[];
-type Input = number | Path | String;
-type List = Array<any>;
-
+type ArgFn = (input: any) => any;
+type Path = (string | number)[];
+type Input = number | Path | string;
+type List = any[];
 interface Dictionary {
-  [index: string]: Key | Path | Object;
+  [index: string]: any;
 }
 
-type SetLens = Curry<(src: Input, val: any, data: Dictionary | List) => Dictionary | List>;
-type SetLensIndex = Curry<(n: number, val: any, arr: List) => List>;
-type SetLensPath = Curry<(path: Path, val: any, obj: Dictionary) => Dictionary>;
-type SetLensProp = Curry<(str: String, val: any, obj: Dictionary) => Dictionary>;
+type SetLensType = Curry<(src: Input, val: any, data: Dictionary | List) => Dictionary | List>;
+type SetLensIndexType = Curry<(n: number, val: any, arr: List) => List>;
+type SetLensPathType = Curry<(path: Path, val: any, obj: Dictionary) => Dictionary>;
+type SetLensPropType = Curry<(str: string, val: any, obj: Dictionary) => Dictionary>;
+
+/**
+ * @private
+ * @function setLensC
+ * @description Returns a curried function that will set a value at a given lens
+ * @param {Function} fn - function used for lens
+ * @returns {Function}
+ */
+const setLensC = (fn: ArgFn) => curry(useWith(set, [fn, identity, identity]));
 
 /**
  * @function setLens
@@ -39,8 +44,7 @@ type SetLensProp = Curry<(str: String, val: any, obj: Dictionary) => Dictionary>
  * @see {@link https://ramdajs.com/docs/#lensProp|Ramda lensProp}
  * @see {@link https://ramdajs.com/docs/#set|Ramda set}
  */
-const setLens: SetLens = curry((src: Input, val: any, data: Dictionary | List) =>
-  set(lensFn(src), val, data));
+const setLens: SetLensType = setLensC(lensFn);
 
 /**
  * @function setLensIndex
@@ -57,8 +61,7 @@ const setLens: SetLens = curry((src: Input, val: any, data: Dictionary | List) =
  * @see {@link https://ramdajs.com/docs/#lensIndex|Ramda lensIndex}
  * @see {@link https://ramdajs.com/docs/#set|Ramda set}
  */
-const setLensIndex: SetLensIndex = curry((n: number, val: any, arr: List) =>
-  set(lensIndex(n), val, arr));
+const setLensIndex: SetLensIndexType = setLensC(lensIndex);
 
 /**
  * @function setLensPath
@@ -75,8 +78,7 @@ const setLensIndex: SetLensIndex = curry((n: number, val: any, arr: List) =>
  * @see {@link https://ramdajs.com/docs/#lensPath|Ramda lensPath}
  * @see {@link https://ramdajs.com/docs/#set|Ramda set}
  */
-const setLensPath: SetLensPath = curry((path: Path, val: any, obj: Dictionary) =>
-  set(lensPath(path), val, obj));
+const setLensPath: SetLensPathType = setLensC(lensPath);
 
 /**
  * @function setLensProp
@@ -93,7 +95,6 @@ const setLensPath: SetLensPath = curry((path: Path, val: any, obj: Dictionary) =
  * @see {@link https://ramdajs.com/docs/#lensProp|Ramda lensProp}
  * @see {@link https://ramdajs.com/docs/#set|Ramda set}
  */
-const setLensProp: SetLensProp = curry((str: String, val: any, obj: Dictionary) =>
-  set(lensProp(str), val, obj));
+const setLensProp: SetLensPropType = setLensC(lensProp);
 
 export { setLens, setLensIndex, setLensPath, setLensProp };

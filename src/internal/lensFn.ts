@@ -5,10 +5,8 @@ import type { Lens } from 'ramda';
  * @function lensFn
  * @memberof Internal
  * @description Conditional that determines which lens function to use if not known.
- *
  * @param {*} input - Either an array, number or string
  * @returns {Function} The proper lens function
- *
  * @example
  * ```
  * lensFn(0); //=> lensIndex(0)

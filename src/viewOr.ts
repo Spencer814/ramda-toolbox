@@ -1,7 +1,9 @@
-import { curry, defaultTo } from 'ramda';
+import type { Curry } from 'Function/Curry';
+import { apply, converge, curry, defaultTo, juxt, nthArg, o } from 'ramda';
 
 import { viewLens, viewLensIndex, viewLensPath, viewLensProp } from './viewLens';
 
+type ArgFn = (input: any) => any;
 type Path = (string | number)[];
 type Input = number | Path | string;
 type List = any[];
@@ -9,8 +11,21 @@ interface Dictionary {
   [index: string]: any;
 }
 
-const viewOrFunc: (def: any, val: Input, data: Dictionary | List) => any = (def, val, data) =>
-  defaultTo(def, viewLens(val)(data));
+type ViewOrType = Curry<(def: any, val: Input, data: Dictionary | List) => any>;
+type ViewOrIndexType = Curry<(def: any, n: number, arr: List) => any>;
+type ViewOrPathType = Curry<(def: any, path: Path, obj: Dictionary) => any>;
+type ViewOrPropType = Curry<(def: any, str: string, obj: Dictionary) => any>;
+
+const tailArgs = juxt([nthArg(1), nthArg(2)]);
+
+/**
+ * @private
+ * @function viewOrC
+ * @description Returns a curried function that will set a value at a given lens
+ * @param {Function} fn - function used for lens
+ * @returns {Function}
+ */
+const viewOrC = (fn: ArgFn) => curry(converge(defaultTo, [nthArg(0), o(apply(fn), tailArgs)]));
 
 /**
  * @function viewOr
@@ -32,10 +47,7 @@ const viewOrFunc: (def: any, val: Input, data: Dictionary | List) => any = (def,
  * ```
  * @see {@link https://char0n.github.io/ramda-adjunct/2.20.0/RA.html#.viewOr|Ramda Adjunct viewOr}
  */
-const viewOr = curry(viewOrFunc);
-
-const viewOrIndexFunc: (def: any, n: number, arr: List) => any = (def, n, arr) =>
-  defaultTo(def, viewLensIndex(n)(arr));
+const viewOr: ViewOrType = viewOrC(viewLens);
 
 /**
  * @function viewOrIndex
@@ -51,10 +63,7 @@ const viewOrIndexFunc: (def: any, n: number, arr: List) => any = (def, n, arr) =
  * viewOrIndex('some', 3, ['foo', 'bar', 'baz']); //=> 'some'
  * ```
  */
-const viewOrIndex = curry(viewOrIndexFunc);
-
-const viewOrPathFunc: (def: any, path: Path, obj: Dictionary) => any = (def, path, obj) =>
-  defaultTo(def, viewLensPath(path)(obj));
+const viewOrIndex: ViewOrIndexType = viewOrC(viewLensIndex);
 
 /**
  * @function viewOrPath
@@ -70,10 +79,7 @@ const viewOrPathFunc: (def: any, path: Path, obj: Dictionary) => any = (def, pat
  * viewOrPath('N/A', ['a', 'b'], {}); //=> 'N/A'
  * ```
  */
-const viewOrPath = curry(viewOrPathFunc);
-
-const viewOrPropFunc: (def: any, str: string, obj: Dictionary) => any = (def, str, obj) =>
-  defaultTo(def, viewLensProp(str)(obj));
+const viewOrPath: ViewOrPathType = viewOrC(viewLensPath);
 
 /**
  * @function viewOrProp
@@ -92,6 +98,6 @@ const viewOrPropFunc: (def: any, str: string, obj: Dictionary) => any = (def, st
  * viewOrProp('some', 'y', { y: false }); //=> false
  * ```
  */
-const viewOrProp = curry(viewOrPropFunc);
+const viewOrProp: ViewOrPropType = viewOrC(viewLensProp);
 
 export { viewOr, viewOrIndex, viewOrPath, viewOrProp };

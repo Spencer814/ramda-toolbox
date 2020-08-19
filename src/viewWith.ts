@@ -1,4 +1,5 @@
-import { curry, identity, o, useWith } from 'ramda';
+import type { Curry } from 'Function/Curry';
+import { curry, identity, pipe, useWith } from 'ramda';
 
 import { viewLens, viewLensIndex, viewLensPath, viewLensProp } from './viewLens';
 
@@ -10,8 +11,19 @@ interface Dictionary {
   [index: string]: any;
 }
 
-const viewWithFunc: (val: Input, fn: ArgFn, data: Dictionary | List) => any = (val, fn, data) =>
-  useWith(o, [identity, viewLens])(fn, val)(data);
+type ViewWithType = Curry<(val: Input, fn: ArgFn, data: Dictionary | List) => any>;
+type ViewWithIndexType = Curry<(n: number, fn: ArgFn, arr: List) => any>;
+type ViewWithPathType = Curry<(path: Path, fn: ArgFn, obj: Dictionary) => any>;
+type ViewWithPropType = Curry<(str: string, fn: ArgFn, obj: Dictionary) => any>;
+
+/**
+ * @private
+ * @function viewWithC
+ * @description Returns a curried function that will set a value at a given lens
+ * @param {Function} fn - function used for lens
+ * @returns {Function}
+ */
+const viewWithC = (fn: ArgFn) => curry(useWith(pipe, [fn, identity]));
 
 /**
  * @function viewWith
@@ -31,10 +43,7 @@ const viewWithFunc: (val: Input, fn: ArgFn, data: Dictionary | List) => any = (v
  * ```
  * @see {@link https://ramda-extension.firebaseapp.com/docs/#viewWith|Ramda Extension viewWith}
  */
-const viewWith = curry(viewWithFunc);
-
-const viewWithIndexFunc: (n: number, fn: ArgFn, arr: List) => any = (n, fn, arr) =>
-  useWith(o, [identity, viewLensIndex])(fn, n)(arr);
+const viewWith: ViewWithType = viewWithC(viewLens);
 
 /**
  * @function viewWithIndex
@@ -51,10 +60,7 @@ const viewWithIndexFunc: (n: number, fn: ArgFn, arr: List) => any = (n, fn, arr)
  * viewWithIndex(0, R.divide(R.__, 2), [4]); //=> 2
  * ```
  */
-const viewWithIndex = curry(viewWithIndexFunc);
-
-const viewWithPathFunc: (path: Path, fn: ArgFn, obj: Dictionary) => any = (path, fn, obj) =>
-  useWith(o, [identity, viewLensPath])(fn, path)(obj);
+const viewWithIndex: ViewWithIndexType = viewWithC(viewLensIndex);
 
 /**
  * @function viewWithPath
@@ -70,10 +76,7 @@ const viewWithPathFunc: (path: Path, fn: ArgFn, obj: Dictionary) => any = (path,
  * viewWithPath(['foo', 'bar'], R.prop(R.__, { baz: 'boo' }), { foo: { bar: 'baz' } }); //=> 'boo'
  * ```
  */
-const viewWithPath = curry(viewWithPathFunc);
-
-const viewWithPropFunc: (str: string, fn: ArgFn, obj: Dictionary) => any = (str, fn, obj) =>
-  useWith(o, [identity, viewLensProp])(fn, str)(obj);
+const viewWithPath: ViewWithPathType = viewWithC(viewLensPath);
 
 /**
  * @function viewWithProp
@@ -89,6 +92,6 @@ const viewWithPropFunc: (str: string, fn: ArgFn, obj: Dictionary) => any = (str,
  * viewWithProp('foo', R.path(R.__, { bar: 'baz' }), { foo: ['bar'] }); //=> 'baz'
  * ```
  */
-const viewWithProp = curry(viewWithPropFunc);
+const viewWithProp: ViewWithPropType = viewWithC(viewLensProp);
 
 export { viewWith, viewWithIndex, viewWithPath, viewWithProp };
