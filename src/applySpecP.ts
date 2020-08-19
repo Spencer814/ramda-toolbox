@@ -1,14 +1,14 @@
 import type { Curry } from 'Function/Curry';
-import { always, apply, converge, curryN, either, equals, flip, identity, ifElse, mapObjIndexed, max, pipe, prop, reduce, type, unless, useWith, values } from 'ramda';
+import { always, apply, converge, curryN, either, flip, identity, ifElse, mapObjIndexed, max, pipe, prop, reduce, unless, useWith, values } from 'ramda';
+import { isAsyncFunction, isFunction } from 'ramda-adjunct';
 
-import promiseAllRecursive from './promiseAllRecursive';
+import { promiseAllRecursive } from './internal';
 
 const applyToList = flip(apply);
 
-const typeEquals: (ctor: string) => (_: any) => boolean = ctor => pipe(type, equals(ctor));
-const isFunction: (_: any) => boolean = either(typeEquals('Function'), typeEquals('AsyncFunction'));
+const isFunctionType = either(isFunction, isAsyncFunction);
 const funcLengthOr0: (_: any) => number = ifElse(
-  isFunction,
+  isFunctionType,
   prop('length'),
   always(0)
 );
