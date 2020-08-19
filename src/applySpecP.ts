@@ -37,10 +37,8 @@ const buildSpec: (spec: any) => (...args: any[]) => any = spec =>
  * mapping each property to the result of calling its associated function with the
  * supplied arguments and then returns a promise that resolves when all promises in a
  * recursive object-structure are resolved.
- *
  * @param {object} spec
  * @returns {Promise<Function>}
- *
  * @example
  * ```
  * const getMetrics = applySpecP({

@@ -18,12 +18,10 @@ const viewWithFunc: (val: Input, fn: ArgFn, data: Dictionary | List) => any = (v
  * @memberof Toolbox
  * @description Applies function on the given lens view, with args reversed to match
  * Based on Ramda Extension viewWith
- *
  * @param {string|number|string[]|number[]} val - The specified index, path, or property
  * @param {Function} fn - function used for lens
  * @param {Object.<string,*>|*} data - The data structure
  * @returns {*} result of view after being appled to the function
- *
  * @example
  * ```
  * viewWith(0, R.pathEq(['foo'], 'boo'), [{ foo: 'boo' }]); //=> true
@@ -43,12 +41,10 @@ const viewWithIndexFunc: (n: number, fn: ArgFn, arr: List) => any = (n, fn, arr)
  * @memberof Toolbox
  * @description Applies function on the given lens view, with args reversed to match
  * Based on Ramda Extension viewWith
- *
  * @param {number} n - The specified index
  * @param {Function} fn - function used for lens
  * @param {*} arr - The data structure
  * @returns {*} result of view after being appled to the function
- *
  * @example
  * ```
  * viewWithIndex(0, R.pathEq(['foo'], 'boo'), [{ foo: 'boo' }]); //=> true
@@ -65,12 +61,10 @@ const viewWithPathFunc: (path: Path, fn: ArgFn, obj: Dictionary) => any = (path,
  * @memberof Toolbox
  * @description Applies function on the given lens view, with args reversed to match
  * Based on Ramda Extension viewWith
- *
  * @param {Array.<string|number>} path - The specified path
  * @param {Function} fn - function used for lens
  * @param {Object.<string,*>} obj - The data structure
  * @returns {*} result of view after being appled to the function
- *
  * @example
  * ```
  * viewWithPath(['foo', 'bar'], R.prop(R.__, { baz: 'boo' }), { foo: { bar: 'baz' } }); //=> 'boo'
@@ -86,12 +80,10 @@ const viewWithPropFunc: (str: string, fn: ArgFn, obj: Dictionary) => any = (str,
  * @memberof Toolbox
  * @description Applies function on the given lens view, with args reversed to match
  * Based on Ramda Extension viewWith
- *
  * @param {string} str - The specified property
  * @param {Function} fn - function used for lens
  * @param {Object.<string,*>} obj - The data structure
  * @returns {*} result of view after being appled to the function
- *
  * @example
  * ```
  * viewWithProp('foo', R.path(R.__, { bar: 'baz' }), { foo: ['bar'] }); //=> 'baz'

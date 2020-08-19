@@ -17,12 +17,10 @@ const viewOrFunc: (def: any, val: Input, data: Dictionary | List) => any = (def,
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure or the defaultValue if null, undefined, or NaN.
  * Based on Ramda Adjunct viewOr
- *
  * @param {*} def - The default value
  * @param {string|number|string[]|number[]} val - The specified index, path, or property
  * @param {Object.<string,*>|*} data - The data structure
  * @returns {*} "view" or defaultValue
- *
  * @example
  * ```
  * viewOr('N/A', 'x', {}); //=> 'N/A'
@@ -44,12 +42,10 @@ const viewOrIndexFunc: (def: any, n: number, arr: List) => any = (def, n, arr) =
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure or the defaultValue if null, undefined, or NaN.
  * Based on Ramda Adjunct viewOr
- *
  * @param {*} def - The default value
  * @param {number} n - The specified index
  * @param {*} arr - The data structure
  * @returns {*} "view" or defaultValue
- *
  * @example
  * ```
  * viewOrIndex('some', 3, ['foo', 'bar', 'baz']); //=> 'some'
@@ -65,12 +61,10 @@ const viewOrPathFunc: (def: any, path: Path, obj: Dictionary) => any = (def, pat
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure or the defaultValue if null, undefined, or NaN.
  * Based on Ramda Adjunct viewOr
- *
  * @param {*} def - The default value
  * @param {Array.<string|number>} path - The specified path
  * @param {Object.<string,*>} obj - The data structure
  * @returns {*} "view" or defaultValue
- *
  * @example
  * ```
  * viewOrPath('N/A', ['a', 'b'], {}); //=> 'N/A'
@@ -86,12 +80,10 @@ const viewOrPropFunc: (def: any, str: string, obj: Dictionary) => any = (def, st
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure or the defaultValue if null, undefined, or NaN.
  * Based on Ramda Adjunct viewOr
- *
  * @param {*} def - The default value
  * @param {string} str - The specified property
  * @param {Object.<string,*>} obj - The data structure
  * @returns {*} "view" or defaultValue
- *
  * @example
  * ```
  * viewOrProp('N/A', 'x', {}); //=> 'N/A'

@@ -13,17 +13,14 @@ const viewEqFunc: (src: Input, val: any, data: Dictionary | List) => boolean = (
   useWith(viewWith, [identity, equals, identity])(src, val, data);
 
 /**
- *
  * @function viewEq
  * @memberof Toolbox
  * @description Returns true if the given lens equals to given value
  * Based on Ramda Extension viewEq
- *
  * @param {string|number|string[]|number[]} val - The value to compare the focused data structure with
  * @param {*} val - Van Laarhoven lens
  * @param {Object.<string,*>|*} data - The data structure
  * @returns {boolean} `true` if the focused data structure equals value, `false` otherwise
- *
  * @example
  * ```
  * viewEq('foo', 'bar')({ foo: 'bar' }); //=> true
@@ -38,17 +35,14 @@ const viewEqIndexFunc: (n: number, val: any, arr: List) => boolean = (n, val, ar
   useWith(viewWithIndex, [identity, equals, identity])(n, val, arr);
 
 /**
- *
  * @function viewEqIndex
  * @memberof Toolbox
  * @description Returns true if the given lens equals to given value
  * Based on Ramda Extension viewEq
- *
  * @param {number} n - The value to compare the focused data structure with
  * @param {*} val - Van Laarhoven lens
  * @param {*} arr - The data structure
  * @returns {boolean} `true` if the focused data structure equals value, `false` otherwise
- *
  * @example
  * ```
  * viewEqIndex(1, 1, [0, 1, 2]); //=> true
@@ -56,21 +50,15 @@ const viewEqIndexFunc: (n: number, val: any, arr: List) => boolean = (n, val, ar
  */
 const viewEqIndex = curry(viewEqIndexFunc);
 
-const viewEqPathFunc: (path: Path, val: any, obj: Dictionary) => boolean = (path, val, obj) =>
-  useWith(viewWithPath, [identity, equals, identity])(path, val, obj);
-
 /**
- *
  * @function viewEqPath
  * @memberof Toolbox
  * @description Returns true if the given lens equals to given value
  * Based on Ramda Extension viewEq
- *
  * @param {Array.<string|number>} path - The value to compare the focused data structure with
  * @param {*} val - Van Laarhoven lens
  * @param {Object.<string,*>} obj - The data structure
  * @returns {boolean} `true` if the focused data structure equals value, `false` otherwise
- *
  * @example
  * ```
  * viewEqPath(['a', 'b'], 'foo', { a: { b: 'foo' } }) //=> true
@@ -82,17 +70,14 @@ const viewEqPropFunc: (str: string, val: any, obj: Dictionary) => boolean = (str
   useWith(viewWithProp, [identity, equals, identity])(str, val, obj);
 
 /**
- *
  * @function viewEqProp
  * @memberof Toolbox
  * @description Returns true if the given lens equals to given value
  * Based on Ramda Extension viewEq
- *
  * @param {string} str - The value to compare the focused data structure with
  * @param {*} val - Van Laarhoven lens
  * @param {Object.<string,*>} obj - The data structure
  * @returns {boolean} `true` if the focused data structure equals value, `false` otherwise
- *
  * @example
  * ```
  * viewEqProp('foo', 'bar')({ foo: 'bar' }); //=> true

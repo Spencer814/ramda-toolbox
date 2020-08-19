@@ -16,11 +16,9 @@ const viewLensFunc: (val: Input, data: Dictionary | List) => any = (val, data) =
  * @function viewLens
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure
- *
  * @param {string|number|string[]|number[]} val - The specified index, path, or property
  * @param {Object.<string,*>|*} data - The data structure
  * @returns {*} ...
- *
  * @example
  * ```
  * viewLens('x', { x: 100 }); //=> 100
@@ -41,11 +39,9 @@ const viewLensIndexFunc: (n: number, arr: List) => any = (n, arr) =>
  * @function viewLensIndex
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure
- *
  * @param {number} n - The specified index
  * @param {*} arr - The data structure
  * @returns {*} ...
- *
  * @example
  * ```
  * viewLensIndex(1, ['foo', 'bar', 'baz']); //=> 'bar'
@@ -62,11 +58,9 @@ const viewLensPathFunc: (path: Path, obj: Dictionary) => any = (path, obj) =>
  * @function viewLensPath
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure
- *
  * @param {Array.<string|number>} path - The specified path
  * @param {Object.<string,*>} obj - The data structure
  * @returns {*} ...
- *
  * @example
  * ```
  * viewLensPath(['a', 'b'], { a: { b: 2 } }); //=> 2
@@ -83,11 +77,9 @@ const viewLensPropFunc: (str: string, obj: Dictionary) => any = (str, obj) =>
  * @function viewLensProp
  * @memberof Toolbox
  * @description Returns a "view" of the given data structure
- *
  * @param {string} str - The specified property
  * @param {Object.<string,*>} obj - The data structure
  * @returns {*} ...
- *
  * @example
  * ```
  * viewLensProp('x', { x: 100 }); //=> 100

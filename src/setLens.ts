@@ -24,12 +24,10 @@ type SetLensProp = Curry<(str: String, val: any, obj: Dictionary) => Dictionary>
  * @function setLens
  * @memberof Toolbox
  * @description Returns the result of "setting" the portion of the given data structure focused by the given lens to the given value
- *
  * @param {string|number|string[]|number[]} src - The specified index, path, or property
  * @param {*} val - The value that will be set
  * @param {Object.<string,*>|*} data - The data structure
  * @returns {Object.<string,*>|*}
- *
  * @example
  * ```
  * setLens('bar', 'foo')({ bar: 'baz' }); //=> { bar: 'foo' }
@@ -48,12 +46,10 @@ const setLens: SetLens = curry((src: Input, val: any, data: Dictionary | List) =
  * @function setLensIndex
  * @memberof Toolbox
  * @description Returns the result of "setting" the portion of the given data structure focused by the given lens to the given value
- *
  * @param {number} n - The specified index
  * @param {*} val - The value that will be set
  * @param {*} arr - The data structure
  * @returns {*}
- *
  * @example
  * ```
  * setLensIndex(0, 'foo')(['baz']); //=> ['foo']
@@ -68,12 +64,10 @@ const setLensIndex: SetLensIndex = curry((n: number, val: any, arr: List) =>
  * @function setLensPath
  * @memberof Toolbox
  * @description Returns the result of "setting" the portion of the given data structure focused by the given lens to the given value
- *
  * @param {Array.<string|number>} path - The specified path
  * @param {*} val - The value that will be set
  * @param {Object.<string,*>} obj - The data structure
  * @returns {Object.<string,*>}
- *
  * @example
  * ```
  * setLensPath(['foo', 'bar'], 1)({ foo: { bar: 'baz' } }); //=> { foo: { bar: 1 } }
@@ -88,12 +82,10 @@ const setLensPath: SetLensPath = curry((path: Path, val: any, obj: Dictionary) =
  * @function setLensProp
  * @memberof Toolbox
  * @description Returns the result of "setting" the portion of the given data structure focused by the given lens to the given value
- *
  * @param {string} str - The specified property
  * @param {*} val - The value that will be set
  * @param {Object.<string,*>} obj - The data structure
  * @returns {Object.<string,*>}
- *
  * @example
  * ```
  * setLensProp('bar', 'foo')({ bar: 'baz' }); //=> { bar: 'foo' }
