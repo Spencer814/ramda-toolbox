@@ -132,6 +132,7 @@ module.exports = {
       }
     ],
     'object-curly-spacing': ['error', 'always'],
+    'operator-linebreak': ['error', 'after', { overrides: { '=': 'after' } }],
     'prefer-const': 'error',
     'prefer-destructuring': [
       'error',
