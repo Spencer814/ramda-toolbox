@@ -1,5 +1,5 @@
 /**
- * @namespace Internal
+ * @namespace Helper
  */
 
 export { default as lensFn } from './lensFn';

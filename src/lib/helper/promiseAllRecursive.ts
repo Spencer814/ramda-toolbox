@@ -15,7 +15,7 @@ const resolveObject:(_: any) => any = o(reduce(iterator, {}), toPairs);
 
 /**
  * @function promiseAllRecursive
- * @memberof Internal
+ * @memberof Helper
  * @description Fires off any promises in the data structure, and will return the same structure with all
  * promises settled. All Promises are fired simultaneously, and none are awaited until all are
  * fired.

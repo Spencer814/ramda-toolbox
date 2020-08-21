@@ -1,9 +1,5 @@
 import { viewWith, viewWithIndex, viewWithPath, viewWithProp } from '../viewWith';
 
-interface Dictionary {
-  [index: string]: any;
-}
-
 describe('utility', () => {
   describe('toolbox', () => {
     const testObj: Dictionary = { toast: 1, waffle: 'crepe', bacon: 'nacho' };

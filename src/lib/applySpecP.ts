@@ -1,29 +1,34 @@
 import type { Curry } from 'Function/Curry';
-import { always, apply, converge, curryN, either, flip, identity, ifElse, mapObjIndexed, max, pipe, prop, reduce, unless, useWith, values } from 'ramda';
-import { isAsyncFunction, isFunction } from 'ramda-adjunct';
+import { always, apply, converge, curryN, either, equals, flip, identity, ifElse, mapObjIndexed, max, pipe, prop, reduce, type, unless, useWith, values } from 'ramda';
 
-import { promiseAllRecursive } from './internal';
+import { promiseAllRecursive } from './helper';
 
 const applyToList = flip(apply);
 
-const isFunctionType = either(isFunction, isAsyncFunction);
-const funcLengthOr0: (_: any) => number = ifElse(
-  isFunctionType,
-  prop('length'),
-  always(0)
-);
+const typeEquals: (ctor: string) => (_: any) => boolean =
+  ctor => pipe(type, equals(ctor));
 
-const getLongestArity: (accum: number, val: any) => number = useWith(
-  max, [identity, funcLengthOr0]
-);
+const isFunction: (input: any) => boolean =
+  either(typeEquals('Function'), typeEquals('AsyncFunction'));
 
-const getArity: (_: any) => number = pipe(
-  values,
-  reduce(getLongestArity, 0)
-);
+const funcLengthOr0: (_: any) => number =
+  ifElse(
+    isFunction,
+    prop('length'),
+    always(0)
+  );
 
-const buildSpec: (spec: any) => (...args: any[]) => any = spec =>
-  async (...args) => pipe(
+const getLongestArity: (accum: number, val: any) => number =
+  useWith(max, [identity, funcLengthOr0]);
+
+const getArity: (_: any) => number =
+  pipe(
+    values,
+    reduce(getLongestArity, 0)
+  );
+
+const buildSpec:(spec: any) => (...args: any[]) => Promise<any> =
+  spec => async (...args) => pipe(
     mapObjIndexed(unless(isFunction, buildSpec)),
     mapObjIndexed(applyToList(args)),
     promiseAllRecursive

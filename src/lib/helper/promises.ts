@@ -2,7 +2,7 @@ import { Promise } from 'bluebird';
 
 /**
  * @function allP
- * @memberof Internal
+ * @memberof Helper
  * @description Composable shortcut for Bluebird's `Promise.all`.
  * The `allP` method returns a single Promise that resolves when all of the promises
  * in the iterable argument have resolved or when the iterable argument contains no promises.
@@ -24,7 +24,7 @@ const allP = Promise.all.bind(Promise);
 
 /**
  * @function allSettledP
- * @memberof Internal
+ * @memberof Helper
  * @description Composable shortcut for Bluebird's `Promise.allSettled`.
  * allSettledP returns a promise that is fulfilled with an array of promise state snapshots,
  * but only after all the original promises have settled, i.e. become either fulfilled or rejected.
@@ -46,7 +46,7 @@ const allSettledP = Promise.allSettled.bind(Promise);
 
 /**
  * @function anyP
- * @memberof Internal
+ * @memberof Helper
  * @description Composable shortcut for Bluebird's `Promise.any`.
  * Returns a promise that is fulfilled by the first given promise to be fulfilled,
  * or rejected with an array of rejection reasons if all of the given promises are rejected.
@@ -68,7 +68,7 @@ const anyP = Promise.any.bind(Promise);
 
 /**
  * @function propsP
- * @memberof Internal
+ * @memberof Helper
  * @description Composable shortcut for Bluebird's `Promise.props`.
  * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled.
  * The promise's fulfillment value is an object with fulfillment values at respective keys to the original object.
@@ -90,7 +90,7 @@ const propsP = Promise.props.bind(Promise);
 
 /**
  * @function rejectP
- * @memberof Internal
+ * @memberof Helper
  * @description Composable shortcut for Bluebird's `Promise.reject`.
  * Reject the underlying promise with `reason` as the rejection reason.
  * @param {Iterable.<*>} iterable - An iterable object such as an Array or String
@@ -109,7 +109,7 @@ const rejectP = Promise.resolve.bind(Promise);
 
 /**
  * @function resolveP
- * @memberof Internal
+ * @memberof Helper
  * @description Composable shortcut for Bluebird's `Promise.resolve`.
  * Returns a Promise object that is resolved with the given value.
  * If the value is a thenable (i.e. has a "then" method), the returned promise will
