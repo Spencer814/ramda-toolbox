@@ -13,9 +13,10 @@
     "test-cov": "jest -c jest.config.js && open artifacts/index.html",
     "test-report": "jest -c jest.config.js && open artifacts/report.html",
     "docs": "rm -rf docs; typedoc --exclude '**/*.spec.ts' --excludeExternals src; open docs/index.html",
-    "lint": "eslint -c .eslintrc.js --ext .ts src",
-    "lint-fix": "eslint -c .eslintrc.js --ext .ts src --fix"
+    "lint": "eslint src --ext .ts",
+    "lint-fix": "eslint src --ext .ts --fix"
   },
+  "typings": "src/global.d.ts",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },

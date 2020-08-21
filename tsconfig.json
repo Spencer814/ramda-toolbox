@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "moduleResolution": "node",
-    "module": "esnext",
+    "module": "commonjs",
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -18,27 +18,18 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "esnext",
-    "types": [
-      "bluebird",
-      "eslint",
-      "jest",
-      "ramda"
-    ]
   },
   "typedocOptions": {
     "mode": "modules",
-    "out": "docs"
+    "out": "docs/typedoc"
   },
   "exclude": [
-    "node_modules",
-    ".eslintrc.js",
-    "jsdoc.js",
-    "babel.config.js",
+    "node_modules/**/*",
+    "node_modules/**/**",
     "jest.config.js",
-    "jest.config.unit.js",
-    "src/utility/jsdoc.js"
+    "src/jsdoc.js"
   ],
   "include": [
-    "src"
+    "src/**/*"
   ]
 }

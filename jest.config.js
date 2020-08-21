@@ -4,9 +4,6 @@ const { name, version } = require('./package');
 // https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
-  automock: true,
-  bail: false,
-  clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'artifacts',
   coverageReporters: [
@@ -26,34 +23,7 @@ module.exports = {
       statements: 100
     }
   },
-  globals: {
-    'ts-jest': {
-      tsConfig: './tsconfig.json'
-    }
-  },
-  moduleDirectories: ['node_modules'],
-  moduleFileExtensions: ['js', 'json', 'node', 'ts'],
-  projects: [
-    {
-      displayName: 'test',
-      runner: 'jest-runner-tsc',
-      testPathIgnorePatterns: ['artifacts', 'build', 'docs'],
-      testRegex: '^.+.spec.ts$'
-    },
-    {
-      displayName: 'lint',
-      modulePathIgnorePatterns: [
-        'index.js',
-        '.eslintrc.js',
-        'babel.config.js',
-        'jsdoc.js',
-        'jest.config.js'
-      ],
-      runner: 'jest-runner-eslint',
-      testPathIgnorePatterns: ['artifacts', 'build', 'docs'],
-      testRegex: '^.+.(j|t)s$'
-    }
-  ],
+  preset: 'ts-jest',
   reporters: [
     'default',
     [
@@ -72,15 +42,10 @@ module.exports = {
       }
     ]
   ],
-  resetMocks: true,
-  resetModules: true,
-  restoreMocks: true,
   testEnvironment: 'node',
-  timers: 'fake',
-  transform: {
-    '^.+\\.[t|j]s?$': 'ts-jest'
-  },
-  verbose: true,
+  testMatch: [
+    '**/__tests__/*.spec.ts'
+  ],
   watchPlugins: [
     'jest-runner-eslint/watch-fix',
     'jest-watch-continue',
