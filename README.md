@@ -1,3 +1,6 @@
+> [!WARNING]
+> **Deprecated.** ramda-toolbox is no longer maintained. Use [shape-toolbox](https://github.com/Spencer814/shape-toolbox) instead. Its [migration guide](https://github.com/Spencer814/shape-toolbox/blob/main/docs/migration.md) maps all 28 exports to their replacements.
+
 # ramda-toolbox
 
 Convenience functions built using ramda
